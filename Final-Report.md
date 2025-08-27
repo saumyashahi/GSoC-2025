@@ -79,10 +79,20 @@ The `towerUtils` provides utility functions for managing node relationships and 
   Tower with multiple compound and nested layers
 </p>
 
+To support these behaviors, I also implemented a **collision detection system** that allows towers and bricks to connect or reject correctly:  
+- Each brick exposes a **bounding box** (`x, y, width, height`) dynamically calculated during render.  
+- On drag, the system continuously checks **overlaps** between the dragged brick’s connection points and potential target slots using **Quadtree** collision detection logic.  
+- If the overlap is within a defined **tolerance threshold**, the slot is highlighted as a valid connection point.  
+- Otherwise, the brick is rejected and rendered back to its last valid position.  
+
+This real-time collision detection was the backbone for both stacking and disconnection logic, ensuring the playground feels fluid and natural.  
+
+[Collision detection system to detect connection points](https://github.com/user-attachments/assets/07299e40-86b1-4496-9520-67dfbafb21a6)
+
 ## Chapter 5: Testing the Tower View  
 Using the tower model, I had previously written I got the towers rendered, and verified individual components in storybook:  
 - **Stacking bricks**: Rendered simple bricks with stacking, dynamically increasable.  
-- **Nested area calculation verification**: Rendered a root compound brick with mutiple nested layers, validating bounding box calculations and correct traversals.  
+- **Nested area calculation verification**: Rendered a root compound brick with multiple nested layers, validating bounding box calculations and correct traversals.  
 - **Expression bricks**: Validated correct connection points for expression bricks connection with short and long labels.  
 
 <p align="center">
@@ -109,7 +119,6 @@ Using the tower model, I had previously written I got the towers rendered, and v
   Validation of short vs long label rendering in bricks
 </p>
 
-<video controls src="assets/collision-detection.mp4" title="Collision detection to detect connection points"></video>  
 
 ## Chapter 6: Building the Palette  
 A **categorized palette** that organizes all available bricks into categories along with a fellow contributor. Features include:  
@@ -136,7 +145,7 @@ Integrating all components into the **main playground**, I used **React Aria DnD
 - Real-time snapping and rejection indicators.  
 
 The `WorkspaceView` handles drag-and-drop events, dynamically creating individual towers at drop coordinates.  
-
+<!-- 
 <p align="center">
   <img src="./assets/drag-on-workspace.png" 
        alt="Dragging bricks on workspace" 
@@ -151,7 +160,8 @@ The `WorkspaceView` handles drag-and-drop events, dynamically creating individua
        style="width:400px; display:block; margin:auto;" />
   <br>
   Dropping a brick into the workspace
-</p>
+</p> 
+-->
 
 <p align="center">
   <img src="./assets/dropped-bricks.png" 
@@ -161,7 +171,7 @@ The `WorkspaceView` handles drag-and-drop events, dynamically creating individua
   Workspace with a number of dropped bricks
 </p>
 
-<video controls src="assets/drag-drop-bricks.mp4" title="Dragging and Dropping bricks into the workspace"></video>  
+[Dragging and Dropping bricks into the workspace](https://github.com/user-attachments/assets/2c3084a7-a22c-4223-94be-07e5109334c8)
 
 ## Chapter 8: Brick Disconnections in Playground  
 Using a dummy rendered tower, I implemented disconnection real-time, using the model written:  
@@ -180,14 +190,6 @@ The `TowerView` handles creating separate towers bricks dynamically, updating al
 </p>
 
 <p align="center">
-  <img src="./assets/disconnecting-dummy-tower.png"  
-       alt="Testing disconnection on a dummy tower" 
-       style="width:350px; display:block; margin:auto;" />
-  <br>
-  Testing disconnection on a dummy tower
-</p>
-
-<p align="center">
   <img src="./assets/disconnecting-tested-tower.png"  
        alt="Testing disconnection on another tower" 
        style="width:550px; display:block; margin:auto;" />
@@ -195,9 +197,7 @@ The `TowerView` handles creating separate towers bricks dynamically, updating al
   valid disconnections with sub-tower creation
 </p>
 
-<!-- 
-<video controls src="assets/disconnecting-tower.mp4" title="Testing disconnection on a dummy tower"></video>  
- -->
+[Testing disconnection on a dummy tower](https://github.com/user-attachments/assets/a5729e87-635f-4fa3-a0bc-9075ff3cfb95)
 
 ## Chapter 9: Bridging to ASTs  
 The final step was mapping towers to **Abstract Syntax Trees (ASTs)** for execution.  
