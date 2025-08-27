@@ -148,7 +148,7 @@ The `WorkspaceView` handles drag-and-drop events, dynamically creating individua
 <p align="center">
   <img src="./assets/drop-on-workspace.png" 
        alt="Dropping bricks on workspace" 
-       style="width:500px; display:block; margin:auto;" />
+       style="width:400px; display:block; margin:auto;" />
   <br>
   Dropping a brick into the workspace
 </p>
@@ -156,7 +156,7 @@ The `WorkspaceView` handles drag-and-drop events, dynamically creating individua
 <p align="center">
   <img src="./assets/dropped-bricks.png" 
        alt="Workspace with a number of dropped bricks" 
-       style="width:500px; display:block; margin:auto;" />
+       style="width:550px; display:block; margin:auto;" />
   <br>
   Workspace with a number of dropped bricks
 </p>
@@ -174,7 +174,7 @@ The `TowerView` handles creating separate towers bricks dynamically, updating al
 <p align="center">
   <img src="./assets/dummy-tower.png" 
        alt="Dummy tower" 
-       style="width:350px; display:block; margin:auto;" />
+       style="width:250px; display:block; margin:auto;" />
   <br>
   A basic dummy tower for testing tower model logic
 </p>
@@ -190,7 +190,7 @@ The `TowerView` handles creating separate towers bricks dynamically, updating al
 <p align="center">
   <img src="./assets/disconnecting-tested-tower.png"  
        alt="Testing disconnection on another tower" 
-       style="width:350px; display:block; margin:auto;" />
+       style="width:550px; display:block; margin:auto;" />
   <br>
   valid disconnections with sub-tower creation
 </p>
@@ -202,7 +202,7 @@ The `TowerView` handles creating separate towers bricks dynamically, updating al
 ## Chapter 9: Bridging to ASTs  
 The final step was mapping towers to **Abstract Syntax Trees (ASTs)** for execution.  
 - Wrote all configurations required for translating each visual brick into an AST node.  
-- Supported 26 AST node types like `FunctionCallStatement` and `BinaryOperatorExpression`.  
+- Supported 26 AST node types, for e.g. `FunctionCallStatement`, `BinaryOperatorExpression`, etc.  
 - Collaborated with peers to refine the execution pipeline.  
 
 
