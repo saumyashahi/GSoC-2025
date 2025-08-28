@@ -54,7 +54,7 @@ The `brickFactory` encapsulates the dynamic generation of these bricks, allowing
 </p>
 
 <p align="center">
-  <img src="./assets/compund.png" 
+  <img src="./assets/compound.png" 
        alt="A compound brick containing nested structures" 
        style="width:500px; display:block; margin:auto;" />
   <br>
@@ -105,6 +105,8 @@ I implemented **tower formation**—tree like formations with one or multiple br
 
 The `towerUtils` provides utility functions for managing node relationships and calculating nested dimensions, ensuring robust tower management.  
 
+[PR: Week 3: feat(Masonry): Implement Brick Tree Model and add Connection points ](https://github.com/sugarlabs/musicblocks-v4/pull/442)
+
 <p align="center">
   <img src="./assets/complex-structure.png" 
        alt="Complex structure with nested towers" 
@@ -112,9 +114,6 @@ The `towerUtils` provides utility functions for managing node relationships and 
   <br>
   Tower with multiple compound bricks and nested layers
 </p>
-
-[PR: Week 3: feat(Masonry): Implement Brick Tree Model and add Connection points ](https://github.com/sugarlabs/musicblocks-v4/pull/442)
-
 
 ## Chapter 5: Testing the Tower View  
 Using the tower model, I had previously written I got the towers rendered, and verified individual components in storybook:  
@@ -152,13 +151,7 @@ The `paletteWrapper` manages category selection, search filtering, and dynamic u
 
 [PR: Week 4-5: feat(Masonry): Add palette to Masonry](https://github.com/sugarlabs/musicblocks-v4/pull/444)
 
-<p align="center">
-  <img src="./assets/workspace-with-palette.png" 
-       alt="Workspace with categorized palette" 
-       style="width:600px; display:block; margin:auto;" />
-  <br>
-  Workspace view with categorized palette visible
-</p>
+[Workspace view with categorized palette visible](https://github.com/user-attachments/assets/98c45d85-f680-4c22-8efe-ddf7c61143be)
 
 ## Chapter 7: Drag-and-Drop in the Playground  
 Integrating all components into the **main playground**, I used **React Aria DnD + Recoil** to enable:  
@@ -168,19 +161,19 @@ Integrating all components into the **main playground**, I used **React Aria DnD
 
 The `WorkspaceView` handles drag-and-drop events, dynamically creating individual towers at drop coordinates.  
 
+[PR: Week 6: feat(masonry): add drag and drop, collision detection, and reverse mapping ](https://github.com/sugarlabs/musicblocks-v4/pull/447)
+
 [Dragging and Dropping bricks into the workspace](https://github.com/user-attachments/assets/2c3084a7-a22c-4223-94be-07e5109334c8)
 
-To support these behaviors, I also implemented a **collision detection system** that allows towers and bricks to connect or reject correctly:  
+I also implemented a **collision detection system** that allows towers and bricks to connect or reject correctly:  
 - Each brick exposes a **bounding box** (`x, y, width, height`) dynamically calculated during render.  
 - On drag, the system continuously checks **overlaps** between the dragged brick’s connection points and potential target slots using **Quadtree** collision detection logic.  
 - If the overlap is within a defined **tolerance threshold**, the slot is highlighted as a valid connection point.  
-- Otherwise, the brick is rejected and rendered back to its last valid position.  
+- Otherwise, the brick connection is declared not valid rejected and rendered back to its last valid position.  
 
 This real-time collision detection was the backbone for both stacking and disconnection logic, ensuring the playground feels fluid and natural.  
 
 [Collision detection system to detect connection points](https://github.com/user-attachments/assets/07299e40-86b1-4496-9520-67dfbafb21a6)
-
-[PR: Week 6: feat(masonry): add drag and drop, collision detection, and reverse mapping ](https://github.com/sugarlabs/musicblocks-v4/pull/447)
 
 ## Chapter 8: Brick Disconnections in Playground  
 Using a dummy rendered tower, I implemented disconnection real-time, using the model written:  
