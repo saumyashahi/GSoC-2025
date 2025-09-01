@@ -1,210 +1,206 @@
-# GSoC 2025: Building the Masonry Module for Music Blocks v4
- 
-**Contributor**: [Saumya Shahi](https://github.com/saumyashahi)  
-**Organization**: [Sugar Labs](https://github.com/sugarlabs/)  
-**Project**: Music Blocks: Masonry Module v4  
-**Repository**: [musicblocks-v4](https://github.com/sugarlabs/musicblocks-v4)  
-**Mentors**: [Anindya Kundu](https://github.com/meganindya/), [Walter Bender](https://github.com/walterbender/), [Devin Ulibarri](https://github.com/pikurasa/)  
+# Google Summer of Code 2025 | Sugar Labs  
 
-In Summer 2025, I contributed to **Music Blocks**, an educational visual programming environment developed by *Sugar Labs*. My project—**The Masonry Module**—focused on creating a scalable system for generating, rendering, and manipulating lego-like “bricks” that represent musical and programming constructs.  
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/8d7a781c-6f2e-47d0-b270-c2ccf7ff1f9f" height="200px" />
+  <img src="https://github.com/user-attachments/assets/6e6dfd5c-7f01-4ac9-83c1-d48e09b9c9ca" height="200px"/>
+</p>
 
-Over **12 weeks**, I:  
-- Engineered a **dynamic SVG-based brick rendering system**.  
-- Built a **categorized palette** for intuitive brick discovery.  
-- Integrated **drag-and-drop functionality** with real-time snapping.  
-- Designed logic for **tower formation** and connection/disconnection.  
-- Implemented **AST translation**, bridging UI with the execution engine.  
+## Contributor Information
 
+- **Name:** Saumya Shahi  
+- **Email:** [saumyashahi05@gmail.com]  
+- **GitHub:** [saumyashahi](https://github.com/saumyashahi)  
+- **Organization:** [Sugar Labs](https://www.sugarlabs.org/)
+- **Blog Page:** [Saumya Shahi](https://www.sugarlabs.org/authors/saumya-shahi)  
+- **Project Repository:** [musicblocks-v4](https://github.com/sugarlabs/musicblocks-v4)  
+- **Mentors:** [Anindya Kundu](https://github.com/meganindya/), [Walter Bender](https://github.com/walterbender/), [Devin Ulibarri](https://github.com/pikurasa/)  
+- **Project:** Large (350 hours)  
 
-## Chapter 1: The Blueprint (Community Bonding)  
-During community bonding, I collaborated with my mentors and fellow contributors to define the project scope. Together, we finalized the **Minimum Viable Product (MVP)**:  
-- Rendering visually distinct brick types (*simple, expression, and compound*).  
-- A **configurable generation system** for dynamic brick creation.  
-- A categorized **palette with drag-and-drop** functionality.  
-- **Tower connections/disconnections** with initial AST translation.  
+---  
 
-Stretch goals included macros, trash handling, and UI enhancements.  
+## Description  
+
+This project introduces the **Masonry Module** for Music Blocks version 4, a scalable system for generating, rendering, and manipulating lego-like **bricks** that represent musical and programming constructs. The Masonry system replaces the older, limited brick rendering logic with a modern **Model–View architecture**, **drag-and-drop playground**, and **brick-tower management** for execution.  
+
+Students can now explore programming concepts visually, with bricks that can be **stacked, nested, connected, or disconnected** dynamically, enabling deeper reflection and experimentation in a playful environment.  
+
+## Background  
+
+Music Blocks is an educational visual programming environment designed to teach music and coding. While the older brick system allowed basic stacking, it lacked scalability, category organization, and seamless integration with AST execution.  
+
+The **Masonry Module** was designed to:  
+- Make brick rendering dynamic and extensible.  
+- Provide an intuitive **palette** of categorized bricks.  
+- Enable **drag-and-drop interactions** with real-time snapping.  
+- Allow **tower formations** that map directly to program structure.  
+- Bridge **visual bricks with ASTs**, making programs executable.  
+
 [*Project Plan & Functional Requirements*](https://docs.google.com/document/d/1UJXh3734S138BoTsGulzeTlZXstyvWd6syJK2eclMKI/edit?usp=sharing)  
 
+This aligned with Sugar Labs’ vision of combining **creativity, coding, and learning** into a single, interactive platform.  
 
-## Chapter 2: Crafting the Bricks  
-The foundation of the module was **brick design via SVG**. I designed and implemented three distinct visual types:  
-- **Simple Bricks** – Stackable, linear sequences with optional parameters.  
-- **Expression Bricks** – Parameterized bricks used as arguments.  
-- **Compound Bricks** – Bricks that enclose sequences of other nested bricks.  
+## Goals  
 
-The `brickFactory` encapsulates the dynamic generation of these bricks, allowing customization of properties like color, label, and connection notches. This system ensures scalability and flexibility for future brick types.  
+- **Brick Rendering System:** Build scalable SVG-based bricks (simple, expression, compound).  
+- **Model–View Architecture:** Separate data (Model) and UI (View) for modularity and debugging.  
+- **Tower Management:** Implement stacking, disconnection, and traversal logic.  
+- **Palette & Playground:** Create categorized palette and drag-and-drop workspace.  
+- **Collision Detection:** Enable snapping and rejection for valid/invalid connection points.  
+- **AST Integration:** Translate towers into AST nodes for execution by program engine.  
+- **Stretch Goals:** Macros, trash handling, and UI enhancements.  
 
-[PR: Week 1: feat: add brick SVG path generation logic](https://github.com/sugarlabs/musicblocks-v4/pull/439)
+---  
+
+## Technical Implementation  
+
+### Phase 1: Brick Rendering with SVG  
+- Designed each brick from scratch using Scalable Vector Graphics (SVGs).
+- Implemented `brickFactory` for generating **Simple, Expression, and Compound** bricks.  
+- Used **dynamic SVG paths** for scalable rendering with customizable properties (label, color, slots).  
+- Verified in Storybook with isolated examples.  
+
+[PR: SVG Paths for Bricks](https://github.com/sugarlabs/musicblocks-v4/pull/439)  
 
 <p align="center">
-  <img src="./assets/simple.png" 
-       alt="Example of simple brick" 
-       style="width:500px; display:block; margin:auto;" />
-  <br>
-  Simple brick SVG structure
+  <img src="./assets/simple.png" alt="Example of simple brick" width="500px"/>
+  <br>Simple brick SVG structure
 </p>
 
 <p align="center">
-  <img src="./assets/expression.png" 
-       alt="Example of argument-based bricks with inputs" 
-       style="width:500px; display:block; margin:auto;" />
-  <br>
-  Expression brick SVG structure
+  <img src="./assets/expression.png" alt="Example of expression brick" width="500px"/>
+  <br>Expression brick SVG structure
 </p>
 
 <p align="center">
-  <img src="./assets/compund.png" 
-       alt="A compound brick containing nested structures" 
-       style="width:500px; display:block; margin:auto;" />
-  <br>
-  Compound brick SVG structure
+  <img src="./assets/compound.png" alt="Example of compound brick" width="500px"/>
+  <br>Compound brick SVG structure
 </p>
 
-## Chapter 3: Adding Brick Model and View  
-
-In the second week, I worked on the **Model–View architecture** for bricks, making the system scalable and testable.  
-
-- **Model**: Implemented an abstract `BrickModel` with shared properties, and added concrete classes for `SimpleBrick`, `ExpressionBrick`, and `CompoundBrick`.  
-- **View**: Created React components (`SimpleView`, `ExpressionView`, `CompoundView`) to render each brick type.  
-- **Storybook**: Added stories for all three brick types, enabling isolated visualization and testing.  
-
-This separation of **data (Model)** and **UI (View)** ensures consistency across brick types and simplifies debugging and iteration.  
-
-[PR: Week 2: feat(Masonry): Add Model and View for Brick](https://github.com/sugarlabs/musicblocks-v4/pull/441)  
+### Phase 2: Model–View Architecture  
+- Built abstract `BrickModel` with shared properties.  
+- Created concrete models for each `SimpleBrick`, `ExpressionBrick`& `CompoundBrick`.  
+- Added React views `SimpleView`, `ExpressionView`& `CompoundView`.  
+- Implemented **storybook stories** for isolated testing.
+  
+[PR: Add Model and View for Bricks](https://github.com/sugarlabs/musicblocks-v4/pull/441)  
 
 <p align="center">
-  <img src="./assets/simple-stacked.png" 
-       alt="Example of simple stacked bricks" 
-       style="width:500px; display:block; margin:auto;" />
-  <br>
-  Example of simple stacked bricks
+  <img src="./assets/simple-stacked.png" alt="Stacked simple bricks" width="500px"/>
+  <br>Example of simple stacked bricks
 </p>
 
 <p align="center">
-  <img src="./assets/argument-bricks.png" 
-       alt="Example of argument-based bricks with inputs" 
-       style="width:500px; display:block; margin:auto;" />
-  <br>
-  Example of argument-based bricks with inputs
+  <img src="./assets/argument-bricks.png" alt="Argument bricks" width="500px"/>
+  <br>Example of argument-based bricks with inputs
 </p>
 
 <p align="center">
-  <img src="./assets/compund-with-nested.png" 
-       alt="A compound brick containing nested structures" 
-       style="width:500px; display:block; margin:auto;" />
-  <br>
-  A compound brick containing nested structures
+  <img src="./assets/compund-with-nested.png" alt="Compound brick with nested" width="500px"/>
+  <br>A compound brick containing nested structures
 </p>
 
-## Chapter 4: Building Tower Model  
-I implemented **tower formation**—tree like formations with one or multiple bricks representing programing logic. I developed a model that can manage:  
-- **Connection logic**: Stacking, slot validation, and expression nesting.  
-- **Disconnection logic**: Splitting a tower into valid sub-towers.  
-- **DFS traversal**: Calculate dimensions from leaf node to parent, but render in reverse for correct selection of bricks according to the bounding box.
-
-The `towerUtils` provides utility functions for managing node relationships and calculating nested dimensions, ensuring robust tower management.  
+### Phase 3: Building the Tower Model  
+- Implemented **tower formation** using structures, each brick being an individual node.  
+- Managed stacking, nesting, expression slots and merging/disconnection of towers. 
+- Added DFS/BFS traversal for **dimension calculations** and **bounding box validation** of the children.  
+- Returned the connection points of each brick from the `path` file to manage individual connections.
+  
+[PR: Add Tower Model and Connection points](https://github.com/sugarlabs/musicblocks-v4/pull/442)  
 
 <p align="center">
-  <img src="./assets/complex-structure.png" 
-       alt="Complex structure with nested towers" 
-       style="width:500px; display:block; margin:auto;" />
-  <br>
-  Tower with multiple compound bricks and nested layers
+  <img src="./assets/complex-structure.png" alt="Complex tower" width="500px"/>
+  <br>Tower with multiple compound bricks and nested layers
 </p>
 
-[PR: Week 3: feat(Masonry): Implement Brick Tree Model and add Connection points ](https://github.com/sugarlabs/musicblocks-v4/pull/442)
-
-
-## Chapter 5: Testing the Tower View  
-Using the tower model, I had previously written I got the towers rendered, and verified individual components in storybook:  
-- **Stacking bricks**: Rendered simple bricks with stacking, dynamically increasable.  
-- **Nested area calculation verification**: Rendered a root compound brick with multiple nested layers, validating bounding box calculations and correct traversals.  
-- **Expression bricks**: Validated correct connection points for expression bricks connection with short and long labels.  
+### Phase 4: Tower View & Testing  
+- Wrote React Stories for dynamic component testing
+- Verified stacking, nesting, and bounding box logic in Storybook.  
+- Tested rendering of towers with short/long labels and nested compounds.
+- Validated correct connection points and bounding box calculation.
 
 <p align="center">
-  <img src="./assets/stacked-simple.png" 
-       alt="Stacked simple bricks" 
-       style="width:500px; display:block; margin:auto;" />
-  <br>
-  Example of simple stacked bricks
+  <img src="./assets/stacked-simple.png" alt="Stacked simple bricks" width="500px"/>
+  <br>Stacked simple bricks
 </p>
-
 
 <p align="center">
-  <img src="./assets/short-long-labels.png" 
-       alt="Short vs long labels on bricks" 
-       style="width:500px; display:block; margin:auto;" />
-  <br>
-  Validation of short vs long label rendering in bricks
+  <img src="./assets/short-long-labels.png" alt="Short vs long labels" width="500px"/>
+  <br>Validation of short vs long label rendering in bricks
 </p>
 
+### Phase 5: Palette System  
+- Developed categorized palette with scrollable categories for separation.
+- Added hover tooltips and search functionality for easy accessibility.  
+- Tested the rendering in Storybook using a json brick registry configurations.
+  
+[PR: Add pallette to Masonry Module](https://github.com/sugarlabs/musicblocks-v4/pull/444)  
 
-## Chapter 6: Building the Palette  
-A **categorized palette** that organizes all available bricks into categories along with a fellow contributor. Features include:  
-- Having scrollable bricks palette  
-- Hover tooltips with descriptions.  
-- Category headers for easy scanning.  
-- Each brick being a draggable component.  
-- Easy search with search button  
+[Workspace view with categorized palette visible](https://github.com/user-attachments/assets/98c45d85-f680-4c22-8efe-ddf7c61143be)
 
-The `paletteWrapper` manages category selection, search filtering, and dynamic updates, creating an intuitive entry point for users.  
-
-[PR: Week 4-5: feat(Masonry): Add palette to Masonry](https://github.com/sugarlabs/musicblocks-v4/pull/444)
-
-<p align="center">
-  <img src="./assets/workspace-with-palette.png" 
-       alt="Workspace with categorized palette" 
-       style="width:600px; display:block; margin:auto;" />
-  <br>
-  Workspace view with categorized palette visible
-</p>
-
-## Chapter 7: Drag-and-Drop in the Playground  
-Integrating all components into the **main playground**, I used **React Aria DnD + Recoil** to enable:  
-- Dragging from the palette to the workspace.  
-- Repositioning bricks within the workspace.  
-- Real-time snapping and rejection indicators.  
-
-The `WorkspaceView` handles drag-and-drop events, dynamically creating individual towers at drop coordinates.  
+### Phase 6: Drag-and-Drop Playground  
+- Migrated all components to playground for combined testing.
+- Integrated **React Aria DnD + Recoil** for workspace interactions.  
+- Implemented **collision detection with Quadtree**, detecting connection, and slot validation.  
+- Individual towers dynamically created on drop coordinates on the workspace.  
+- Used reverse mapping utility to map back the collision points to respective brick and tower.
+  
+[PR: Add drag and drop, collision detection, and reverse mapping](https://github.com/sugarlabs/musicblocks-v4/pull/447)  
 
 [Dragging and Dropping bricks into the workspace](https://github.com/user-attachments/assets/2c3084a7-a22c-4223-94be-07e5109334c8)
 
-To support these behaviors, I also implemented a **collision detection system** that allows towers and bricks to connect or reject correctly:  
-- Each brick exposes a **bounding box** (`x, y, width, height`) dynamically calculated during render.  
-- On drag, the system continuously checks **overlaps** between the dragged brick’s connection points and potential target slots using **Quadtree** collision detection logic.  
-- If the overlap is within a defined **tolerance threshold**, the slot is highlighted as a valid connection point.  
-- Otherwise, the brick is rejected and rendered back to its last valid position.  
-
-This real-time collision detection was the backbone for both stacking and disconnection logic, ensuring the playground feels fluid and natural.  
-
 [Collision detection system to detect connection points](https://github.com/user-attachments/assets/07299e40-86b1-4496-9520-67dfbafb21a6)
 
-[PR: Week 6: feat(masonry): add drag and drop, collision detection, and reverse mapping ](https://github.com/sugarlabs/musicblocks-v4/pull/447)
-
-## Chapter 8: Brick Disconnections in Playground  
-Using a dummy rendered tower, I implemented disconnection real-time, using the model written:  
-- Dragging from the palette to the workspace.  
-- Repositioning bricks within the workspace.  
-- Real-time snapping and rejection indicators.  
-
-The `TowerView` handles creating separate towers bricks dynamically, updating all connections, bounding box calculations and parent-child relationships when there is a change in a tower structure.  
-
-[PR: Week 7-8: feat(masonry): Add tower disconnection and dragging of tower in Workspace](https://github.com/sugarlabs/musicblocks-v4/pull/450)
-
+### Phase 7: Disconnection Logic  
+- Added ability to **disconnect towers** in real-time by dragging them away.  
+- Updated bounding boxes and parent-child relationships for each brick in the tower.  
+- Trigger model and dimension updates each time there is a disconnection of a brick/tower.
+  
 [Testing disconnection on a dummy tower](https://github.com/user-attachments/assets/a5729e87-635f-4fa3-a0bc-9075ff3cfb95)
 
-## Chapter 9: Bridging to ASTs  
-The final step was mapping towers to **Abstract Syntax Trees (ASTs)** for execution.  
-- Wrote all configurations required for translating each visual brick into an AST node.  
-- Supported 26 AST node types, for e.g. `FunctionCallStatement`, `BinaryOperatorExpression`, etc.  
-- Collaborated with peers to refine the execution pipeline.  
+### Phase 8: AST Integration  
+- Decided on configurations required to transform the visual brick into an AST node.
+- Wrote mappings for 26 AST node types (`FunctionCallStatement`, `BinaryOperatorExpression`, etc.).  
+- Some brick samples were used to translate into executable AST nodes.
+- Worked on bug fixes, refactoring, and collaborated on program engine integration. 
+  
+[PR: Add tower disconnection and dragging of tower in Workspace](https://github.com/sugarlabs/musicblocks-v4/pull/450)
 
-## Chapter 10: Next Steps  
-- Complete integration of AST and execution (program) engine.  
-- Add advanced features: rendering macros and trash handling.  
-- Optimize performance for large-scale programs.  
+---  
 
+## Project Timeline  
 
-## Epilogue: Reflections  
-> GSoC 2025 has been a transformative experience: I grew as a developer, contributed to an open-source project with global impact, and learned the importance of designing systems that are both technically robust and educationally meaningful. My deepest thanks to mentors **Anindya Kundu, Walter Bender, and Devin Ulibarri** for their guidance. Special appreciation to **Justin Charles** for collaboration. The Sugar Labs community made this journey collaborative and inspiring.  
+| Week | Dates | Milestones & Achievements | Blog / Report Link |  
+|------|-------|---------------------------|-------------------|  
+| Week 1 | 2025-06-01 – 2025-06-07 | Implemented SVG brick rendering system. | [Week 1](https://www.sugarlabs.org/news/developer-news/2025-06-08-gsoc-25-saumya-week01) |  
+| Week 2 | 2025-06-08 – 2025-06-14 | Added Model–View architecture and Storybook stories. | [Week 2](https://www.sugarlabs.org/news/developer-news/2025-06-14-gsoc-25-saumya-shahi-week02) |  
+| Week 3 | 2025-06-15 – 2025-06-21 | Implemented Tower Model (stacking, nesting, DFS traversal). | [Week 3](https://www.sugarlabs.org/news/developer-news/2025-06-21-gsoc-25-saumya-shahi-week03) |  
+| Week 4 | 2025-06-22 – 2025-07-05 | Added categorized palette with search and tooltips. | [Week 4](https://www.sugarlabs.org/news/developer-news/2025-06-29-gsoc-25-saumya-shahi-week04) |  
+| Week 5-6 | 2025-07-06 – 2025-07-12 | Integrated drag-and-drop in playground with collision detection. | [Week 5-6](https://www.sugarlabs.org/news/developer-news/2025-07-06-gsoc-25-saumya-shahi-week05) |  
+| Week 7–8 | 2025-07-13 – 2025-07-26 | Implemented disconnection and dynamic tower updates. | [Week 7–8](https://dummy-link-week7) |  
+| Week 9–10 | 2025-07-27 – 2025-08-09 | AST integration and execution pipeline refinement. | [Week 9–10](https://dummy-link-week9) |  
+| Final Blog | 2025-08-10 – 2025-08-24 | Bug fixes, documentation, final polish. | [Week 11–12](https://dummy-link-week11) |  
+
+---  
+
+## Results & Learnings  
+
+- **SVG Rendering:** Built scalable, parameterized bricks with custom paths.  
+- **Architecture:** Learned and applied Model–View separation for modular design.  
+- **Drag-and-Drop:** Implemented React Aria DnD with real-time snapping and validation.  
+- **Data Structures:** Used DFS/BFS and Quadtree for traversal and collision detection.  
+- **AST Concepts:** Understood compiler pipeline while mapping bricks to AST nodes.  
+- **Collaboration:** Worked closely with mentors and peers on integration and reviews.  
+
+## Future Work  
+
+- Full integration of **AST execution engine**.  
+- Implement **macros and trash handling**.  
+- Optimize for **performance on large programs**.  
+
+## Acknowledgments  
+
+I would like to sincerely thank:  
+- **Anindya Kundu, Walter Bender, and Devin Ulibarri** for their continuous guidance and mentorship.  
+- **Sugar Labs Community** for their encouragement and feedback.  
+
+GSoC 2025 has been a transformative experience; I grew as a developer, contributed to an open-source project with global impact, and learned the importance of designing systems that are both technically robust and educationally meaningful.
